@@ -6,4 +6,4 @@ import './original-site.css';
 import './globals.css';
 import './site-additions.css';
 export const metadata:Metadata={metadataBase:new URL('https://kampusone.app'),title:{default:'KampusOne — Everything Campus. Connected.',template:'%s · KampusOne'},description:'KampusOne connects campus news, classes, routes, services and student life in one calm, useful experience.',icons:{icon:'/favicon.svg'},openGraph:{title:'KampusOne — One Campus, One App.',description:'Everything campus. Connected.',images:['/assets/images/campus-social.jpg']}};
-export default function Layout({children}:{children:React.ReactNode}){return <html lang="en"><body><AuthProvider><SiteFrame>{children}</SiteFrame></AuthProvider><Script src="/original-site.js" strategy="afterInteractive"/></body></html>;}
+export default function Layout({children}:{children:React.ReactNode}){return <html lang="en"><body><AuthProvider><SiteFrame>{children}</SiteFrame></AuthProvider><Script src="/original-site.js" strategy="afterInteractive"/><Script id="sabilytics" src="https://www.sabilytics.com/script.js" data-site="jkcysu3svnt9" data-domain="kampusone.app" strategy="afterInteractive"/></body></html>;}
