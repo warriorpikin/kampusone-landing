@@ -1,0 +1,4 @@
+import {notFound} from 'next/navigation';
+import {publicData,type Article} from '@/lib/website';
+import {ArticleActions} from '@/components/article-actions';
+export default async function Story({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const data=await publicData<{article:Article}>('/articles/'+encodeURIComponent(slug));if(!data)notFound();const a=data.article;return <article className="article-shell"><p className="eyebrow">CAMPUS NOTES · {a.author_name}</p><h1>{a.title}</h1><p className="lede">{a.excerpt}</p><p className="fine">{new Date(a.published_at).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'})}</p>{a.cover_url&&<img className="article-cover" src={a.cover_url} alt=""/>}<div className="prose">{a.body?.split(/\n\s*\n/).map((p,i)=><p key={i}>{p}</p>)}</div><ArticleActions slug={slug} title={a.title} initialLikes={a.likes}/></article>;}
