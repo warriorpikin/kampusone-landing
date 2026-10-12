@@ -3,7 +3,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {usePathname} from 'next/navigation';
 import {usePortalAuth} from './auth-provider';
-const links=[['Home','/'],['About','/about'],['Features','/#experience'],['Blog','/blog'],['Team','/team'],['Contact','/contact'],['Documentation','/documentation']];
+const links=[['Home','/'],['About','/about'],['Features','/#experience'],['Blog','/blog'],['Team','/team'],['Contact','/contact'],['Documentation','/documentation'],['Agents','/agents']];
 export function Header(){
  const {user}=usePortalAuth(),path=usePathname(),home=path==='/',[open,setOpen]=useState(false);
  const trigger=useRef<HTMLButtonElement>(null),panel=useRef<HTMLDivElement>(null);
@@ -32,7 +32,7 @@ export function Header(){
  </header>
  {open&&<div className="mobile-nav-shell is-open" onClick={event=>{if(event.target===event.currentTarget)setOpen(false);}}><div ref={panel} id="mobile-navigation" className="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
   <div className="mobile-menu-header"><img src="/assets/brand/KampusOne_horizontal_ink.svg" alt="KampusOne"/><button className="menu-close" type="button" aria-label="Close navigation" onClick={()=>setOpen(false)}><svg className="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button><p className="mobile-menu-title">Explore KampusOne</p><p className="mobile-menu-description">One connected view of campus life.</p></div>
-  <nav className="mobile-nav" aria-label="Mobile navigation">{[...links,['Become an agent','https://agents.kampusone.app/agents'],[user?'My account':'Sign in',user?'/account':'/signin'],['Get the app','/download']].map(([name,href],i)=><a key={href} href={href} aria-current={active(href)?'page':undefined}><span>{String(i+1).padStart(2,'0')}</span>{name}</a>)}</nav>
+  <nav className="mobile-nav" aria-label="Mobile navigation">{[...links,[user?'My account':'Sign in',user?'/account':'/signin'],['Get the app','/download']].map(([name,href],i)=><a key={href} href={href} aria-current={active(href)?'page':undefined}><span>{String(i+1).padStart(2,'0')}</span>{name}</a>)}</nav>
   <div className="mobile-menu-foot"><span>Made for the rhythm of student life.</span></div>
  </div></div>}</>;
 }
