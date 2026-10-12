@@ -2,7 +2,7 @@
 import {useRef,useState,type FormEvent} from 'react';
 import {portalApi} from '@/lib/api';
 
-export function WaitlistForm({academicContextReady=false}:{academicContextReady?:boolean}){
+export function WaitlistForm({academicContextReady=false,initialPlatform='BOTH'}:{academicContextReady?:boolean;initialPlatform?:'ANDROID'|'IOS'|'BOTH'}){
   const [busy,setBusy]=useState(false),[error,setError]=useState(''),[done,setDone]=useState(false),[level,setLevel]=useState('');
   const lock=useRef(false);
   async function submit(event:FormEvent<HTMLFormElement>){
@@ -25,7 +25,7 @@ export function WaitlistForm({academicContextReady=false}:{academicContextReady?
     <label>Level<select name="level" value={level} onChange={event=>setLevel(event.target.value)}><option value="">Select your level</option>{['100','200','300','400','500','600','Postgraduate'].map(value=><option key={value} value={value}>{value==='Postgraduate'?value:value+' level'}</option>)}<option value="CUSTOM">Enter my level</option></select></label>
     {level==='CUSTOM'?<label>Your level<input name="customLevel" placeholder="e.g. ND 2, HND 1, pre-degree" maxLength={80} required disabled={busy}/></label>:null}
     </fieldset>
-    <label>Your device<select name="platform" defaultValue="BOTH" disabled={busy}><option value="ANDROID">Android</option><option value="IOS">iPhone / iPad</option><option value="BOTH">Both</option></select></label>
+    <label>Your device<select name="platform" defaultValue={initialPlatform} disabled={busy}><option value="ANDROID">Android</option><option value="IOS">iPhone / iPad</option><option value="BOTH">Both</option></select></label>
     <label className="honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off"/></label>
     <label className="check"><input type="checkbox" name="consent" value="yes" required disabled={busy}/><span>I agree to receive access updates by email. See our <a href="/privacy">privacy policy</a>.</span></label>
     {error?<p role="alert" className="notice">{error}</p>:null}
